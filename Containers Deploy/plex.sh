@@ -1,3 +1,7 @@
+# This will create a container with Plex media server.
+# Configuration files is been saved in /mnt/media/
+# If /mnt/media is not created, please adjust it to the desired destination.
+
 docker run -d \
 --name=plex \
 -p 32400:32400 \

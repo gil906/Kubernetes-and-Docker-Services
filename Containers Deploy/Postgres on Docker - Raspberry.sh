@@ -1,16 +1,15 @@
 
 # Postgres - Working
- docker run -d \
-    --name postgres \
-   -p 5432:5432  \
-   -p 5050:5050  \
-    -e POSTGRES_PASSWORD=postgres \
-    -e PGDATA=/mnt/media/postgres/data/pgdata \
-    -e DEFAULT_SERVER = '0.0.0.0'
-    -e DEFAULT_SERVER_PORT = 5050
-     --restart unless-stopped \
-    -v /custom/mount:/mnt/media/postgres/data \
-    postgres
+docker run -d \
+--name postgres \
+-p 5432:5432  \
+--restart unless-stopped \
+-e POSTGRES_USER=postgres \
+-e POSTGRES_PASSWORD=postgres \
+-e PGDATA=/mnt/media/postgres/data/pgdata \
+-v /mnt/media/postgres/data:/var/lib/postgresql/data \
+postgres:latest
+
 
 
 # Postgres - To Login:
@@ -23,4 +22,3 @@
 #    -e "PGADMIN_DEFAULT_EMAIL=deleonquintero@gmail.com" \
 #    -e "PGADMIN_DEFAULT_PASSWORD=postgres" \
 #    -d dpage/pgadmin4
-

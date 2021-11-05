@@ -8,7 +8,7 @@
     -e PGDATA=/mnt/media/postgres/data/pgdata \
     -e DEFAULT_SERVER = '0.0.0.0'
     -e DEFAULT_SERVER_PORT = 5050
-
+     --restart unless-stopped \
     -v /custom/mount:/mnt/media/postgres/data \
     postgres
 

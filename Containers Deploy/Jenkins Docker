@@ -1,0 +1,6 @@
+docker run -d \
+--name=myjenkins \
+-p 8080:8080 \
+-p 50000:50000 \
+--restart unless-stopped  \
+--env JAVA_OPTS=-Dhudson.footerURL=http://gil906.duckdns.org jenkins

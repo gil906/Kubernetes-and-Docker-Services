@@ -1,7 +1,4 @@
-# This will create a container with Plex media server.
-# Configuration files is been saved in /mnt/media/
-# If /mnt/media is not created, please adjust it to the desired destination.
-
+Plex - Working
 docker run -d \
 --name=plex \
 -p 32400:32400 \
@@ -25,3 +22,67 @@ docker run -d \
 -v /mnt/media/study:/study \
 --restart unless-stopped \
 ghcr.io/linuxserver/plex:arm64v8-latest
+
+
+<< Docker-compose
+# --------------With Docker Compose -----------------------
+
+    plex:
+        container_name: plex
+        ports:
+            - '32400:32400'
+            - '1900:1900/udp'
+            - '3005:3005'
+            - '5353:5353/udp'
+            - '8324:8324'
+            - '32410:32410/udp'
+            - '32412:32412/udp'
+            - '32413:32413/udp'
+            - '32414:32414/udp'
+            - '32469:32469'
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - VERSION=docker
+            - UMASK_SET=022
+            - PLEX_CLAIM=claim-tSHtH2yzfmPNLtusTpBs
+        volumes:
+            - '/mnt/media:/config'
+            - '/mnt/media/tv:/tv'
+            - '/mnt/media/movies:/movies'
+            - '/mnt/media/study:/study'
+        restart: unless-stopped
+        image: 'ghcr.io/linuxserver/plex:arm64v8-latest'
+
+
+
+
+    plex:
+        container_name: plex
+        ports:
+            - '32400:32400'
+            - '1900:1900/udp'
+            - '3005:3005'
+            - '5353:5353/udp'
+            - '8324:8324'
+            - '32410:32410/udp'
+            - '32412:32412/udp'
+            - '32413:32413/udp'
+            - '32414:32414/udp'
+            - '32469:32469'
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - VERSION=docker
+            - UMASK_SET=022
+            - PLEX_CLAIM=claim-tSHtH2yzfmPNLtusTpBs
+        volumes:
+            - '/mnt/media:/config'
+            - '/mnt/media/tv:/tv'
+            - '/mnt/media/movies:/movies'
+            - '/mnt/media/study:/study'
+        restart: unless-stopped
+        image: 'ghcr.io/linuxserver/plex:arm64v8-latest'
+Docker-compose
+
+

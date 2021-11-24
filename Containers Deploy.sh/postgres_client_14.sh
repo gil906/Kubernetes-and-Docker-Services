@@ -6,4 +6,7 @@ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-
 sudo apt update -y
 
  sudo apt install postgresql-client-14
+ 
+ # Backup from client
+ # pg_dump movie_data > movie_data.sql -h 192.168.1.200 -U postgres
 

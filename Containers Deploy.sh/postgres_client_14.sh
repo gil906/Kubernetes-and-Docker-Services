@@ -7,6 +7,19 @@ sudo apt update -y
 
  sudo apt install postgresql-client-14
  
- # Backup from client
+ # TO backup one database from remote host:
  # pg_dump movie_data > movie_data.sql -h 192.168.1.200 -U postgres
+
+ # To backup ALL databases from remote host:
+ # pg_dumpall movie_data > movie_data.sql -h 192.168.1.200 -U postgres
+
+
+ # TO Restore one database from remote host:
+ # pg_dump movie_data < movie_data.sql -h 192.168.1.200 -U postgres
+
+# To restore ALL databases from remote host:
+ # pg_dumpall -f movie_data < movie_data.sql -h 192.168.1.200 -U postgres
+
+
+
 

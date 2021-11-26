@@ -44,9 +44,7 @@ docker run -d \
 postgres:latest
 
 
-postgres14
-
-
+# This one is not working:
 
 << pgadmin
 # Postgres - To Login:

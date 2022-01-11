@@ -1,0 +1,143 @@
+
+Docker push to docker hub
+
+When you build them, using 
+docker build -t <hub-user>/<repo-name>[:<tag>]
+
+Re-tagging an existing local image 
+docker tag <existing-image> <hub-user>/<repo-name>[:<tag>]
+
+Commit changes
+docker commit <existing-container> <hub-user>/<repo-name>[:<tag>]
+
+Push this repository to the registry designated by its name or tag.
+docker push <hub-user>/<repo-name>:<tag>
+
+
+Docker increase connection  limit by user
+# available limit
+user@ubuntu:~$ ulimit -n
+1024
+
+# To increase the available limit to say 65535
+user@ubuntu:~$ sudo vim /etc/sysctl.conf
+
+# add the following line to it
+fs.file-max = 65535
+
+# run this to refresh with new config
+user@ubuntu:~$ sudo sysctl -p
+
+
+
+
+
+Update a container image:
+docker pull [Image name}
+docker stop [old container]
+docker rm [old container]
+docker run[new container + parameters]
+docker stop $(docker ps -a -q)      # Stop all containers
+docker rm $(docker ps -a -q)        #Remove all stopped containers
+
+Update ALL container images:
+docker images | grep -v REPOSITORY | awk '{print $1}' | xargs -L1 docker pull
+
+WSL to WSL2
+https://www.tenforums.com/tutorials/164301-how-update-wsl-wsl-2-windows-10-a.html
+
+
+Extras for Ubuntu 21.10 on Raspberry:
+Sudo apt install linux-modules-extra-raspi
+sudo apt-get remove --purge samba samba-*
+sudo apt-get autoremove
+
+
+sudo apt-get remove --purge  landscape-common
+
+Errors were encountered while processing:
+ sssd-common
+ sssd-proxy
+ samba-common
+ landscape-common
+ sssd-ipa
+ sssd-ad-common
+ sssd-krb5-common
+ samba-common-bin
+ sssd-krb5
+ sssd
+ sssd-ldap
+ samba
+ sssd-ad
+
+
+Check Containers internal IP Addresses
+docker inspect -f '{{.Name}} - {{.NetworkSettings.IPAddress }}' $(docker ps -aq)
+or
+docker exec [container-id or container-name] cat /etc/hosts
+docker exec [container-id or container-name] ip a
+
+
+
+
+
+
+
+
+
+
+
+Convert Docker CLI to Docker-Compose
+https://www.composerize.com/
+
+
+## Install Docker  on Centos## 
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum install −y docker-ce
+sudo systemctl start docker
+
+## Install DOCKER COMPOSE on Centos##
+sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+yum install git
+git clone https://github.com/zabbix/zabbix-docker.git
+##git reset --hard
+
+sudo pip3 -v install docker-compose
+
+
+delete volumes  will clean up any resources — images, containers, volumes, and networks — that are dangling (not associated with a container)`
+docker system prune
+
+
+
+delete all unused images (not just dangling images),
+docker system prune -a
+
+
+
+ --------------------------------------------------------------------------------------------------------------------------------------------------
+
+Block Public access and allow only pivate access from 192.168.5.0/24
+iptables -I INPUT -s 192.168.5.0/24 -p tcp --dport ssh -j ACCEPT
+iptables -A INPUT -p tcp --dport 22 -j DROP
+iptables -I INPUT -s 192.168.5.0/24 -p tcp --dport ssh -j ACCEPT
+
+
+IP tables for AdGuard
+[root@localhost ~]# iptables -I INPUT 1 -s 127.0.0.0/8 -p tcp -m tcp --dport 53 -j ACCEPT
+[root@localhost ~]# iptables -I INPUT 1 -s 192.168.0.0/16 -p tcp -m tcp --dport 80 -j ACCEPT
+[root@localhost ~]# iptables -I INPUT 1 -s 127.0.0.0/8 -p udp -m udp --dport 53 -j ACCEPT
+[root@localhost ~]# iptables -I INPUT 1 -s 192.168.0.0/16 -p tcp -m tcp --dport 53 -j ACCEPT
+[root@localhost ~]# iptables -I INPUT 1 -s 192.168.0.0/16 -p udp -m udp --dport 53 -j ACCEPT
+[root@localhost ~]# iptables -I INPUT 1 -p udp --dport 67:68 --sport 67:68 -j ACCEPT
+[root@localhost ~]# iptables -I INPUT 1 -p tcp -m tcp --dport 4711:4720 -i lo -j ACCEPT
+[root@localhost ~]# iptables -I INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+
+
+Firewalld
+firewall-cmd --zone=internal --add-service=ssh --permanent
+firewall-cmd --zone=internal --add-source=192.168.5.0/24 --permanent
+# test for host firewall-cmd --zone=internal --add-source=192.168.56.120/32
+firewall-cmd --zone=public --remove-service=ssh --permanent
+

@@ -26,14 +26,15 @@ ghcr.io/linuxserver/plex:arm64v8-latest
 
 << Docker-compose
 # --------------With Docker Compose -----------------------
-
+version: '3.3'
+services:
     plex:
         container_name: plex
         ports:
             - '32400:32400'
-            - '1900:1900/udp'
+            - '1901:1900/udp'
             - '3005:3005'
-            - '5353:5353/udp'
+            - '5354:5353/udp'
             - '8324:8324'
             - '32410:32410/udp'
             - '32412:32412/udp'
@@ -43,46 +44,12 @@ ghcr.io/linuxserver/plex:arm64v8-latest
         environment:
             - PUID=1000
             - PGID=1000
-            - VERSION=docker
-            - UMASK_SET=022
-            - PLEX_CLAIM=claim-tSHtH2yzfmPNLtusTpBs
         volumes:
-            - '/mnt/media:/config'
-            - '/mnt/media/tv:/tv'
+            - '/mnt/media/plex:/config'
+            - '/mnt/media2/TV:/tv'
             - '/mnt/media/movies:/movies'
             - '/mnt/media/study:/study'
         restart: unless-stopped
-        image: 'ghcr.io/linuxserver/plex:arm64v8-latest'
-
-
-
-
-    plex:
-        container_name: plex
-        ports:
-            - '32400:32400'
-            - '1900:1900/udp'
-            - '3005:3005'
-            - '5353:5353/udp'
-            - '8324:8324'
-            - '32410:32410/udp'
-            - '32412:32412/udp'
-            - '32413:32413/udp'
-            - '32414:32414/udp'
-            - '32469:32469'
-        environment:
-            - PUID=1000
-            - PGID=1000
-            - VERSION=docker
-            - UMASK_SET=022
-            - PLEX_CLAIM=claim-tSHtH2yzfmPNLtusTpBs
-        volumes:
-            - '/mnt/media:/config'
-            - '/mnt/media/tv:/tv'
-            - '/mnt/media/movies:/movies'
-            - '/mnt/media/study:/study'
-        restart: unless-stopped
-        image: 'ghcr.io/linuxserver/plex:arm64v8-latest'
-Docker-compose
+        image: 'linuxserver/plex:arm64v8-latest'
 
 

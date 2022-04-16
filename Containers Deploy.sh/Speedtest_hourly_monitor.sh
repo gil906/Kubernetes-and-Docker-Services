@@ -6,3 +6,5 @@ docker run -d \
       -e OOKLA_EULA_GDPR=true \
       --restart unless-stopped \
       henrywhitaker3/speedtest-tracker:dev-arm
+
+      

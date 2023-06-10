@@ -19,6 +19,10 @@ docker pull jellyfin/jellyfin:latest
 # Create a directory for Jellyfin configuration files
 mkdir ~/jellyfin
 
+# Set your desired username and password
+JELLYFIN_USERNAME="your_username"
+JELLYFIN_PASSWORD="your_password"
+
 # Run the Jellyfin Docker container
 docker run -d \
   --name jellyfin \
@@ -26,6 +30,8 @@ docker run -d \
   --network=host \
   -v ~/jellyfin:/config \
   -v /path/to/media:/data \
+  -e "JELLYFIN_USERNAME=$JELLYFIN_USERNAME" \
+  -e "JELLYFIN_PASSWORD=$JELLYFIN_PASSWORD" \
   jellyfin/jellyfin:latest
 
 echo "Jellyfin server has been deployed successfully!"

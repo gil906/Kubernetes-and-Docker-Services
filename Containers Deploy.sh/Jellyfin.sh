@@ -19,7 +19,7 @@ docker pull jellyfin/jellyfin:latest
 # Create a directory for Jellyfin configuration files
 mkdir ~/jellyfin
 
-# Set your desired username and password
+# Set your desired username and password - this variable can be removed
 JELLYFIN_USERNAME="your_username"
 JELLYFIN_PASSWORD="your_password"
 

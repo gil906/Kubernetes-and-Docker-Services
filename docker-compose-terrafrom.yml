@@ -6,7 +6,7 @@ services:
     volumes:
       - /path/to/your/terraform/code:/terraform
     working_dir: /terraform
-    command: ["tail", "-f", "/dev/null"]
+#    command: ["tail", "-f", "/dev/null"]
     networks:
       - terraform-net
 

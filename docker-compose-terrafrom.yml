@@ -1,0 +1,14 @@
+version: '3'
+services:
+  terraform:
+    image: hashicorp/terraform:latest
+    container_name: terraform
+    volumes:
+      - /path/to/your/terraform/code:/terraform
+    working_dir: /terraform
+    command: ["tail", "-f", "/dev/null"]
+    networks:
+      - terraform-net
+
+networks:
+  terraform-net:

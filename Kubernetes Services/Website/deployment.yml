@@ -13,7 +13,7 @@ spec:
         app: website
     spec:
       containers:
-      - name: website
-        image: httpd:linux/arm64
-        ports:
-        - containerPort: 80
+        - name: website
+          image: your-custom-image:tag  # Replace with your actual image and tag
+          ports:
+            - containerPort: 80

@@ -5,7 +5,7 @@ metadata:
   name: website
 spec:
   rules:
-  - host: yourdomain.com
+  - host: gil906.duckdns.org
     http:
       paths:
       - path: /

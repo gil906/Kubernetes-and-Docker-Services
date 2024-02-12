@@ -13,7 +13,14 @@ spec:
         app: website
     spec:
       containers:
+<<<<<<< HEAD:Kubernetes Services/Website/deployment.yml
         - name: website
           image: your-custom-image:tag  # Replace with your actual image and tag
           ports:
             - containerPort: 80
+=======
+      - name: website
+        image: httpd
+        ports:
+          - containerPort: 80
+>>>>>>> 81bf6bd6274d33d1f0fa5ff5c27a22b12bb8ed1b:Kubernetes_Services/Website/deployment.yaml

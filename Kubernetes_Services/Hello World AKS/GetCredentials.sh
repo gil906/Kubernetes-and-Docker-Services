@@ -5,3 +5,4 @@ az aks get-credentials --resource-group $YOURRESOURCEGROUP --n $CLUSTERNAME
 
 
 
+

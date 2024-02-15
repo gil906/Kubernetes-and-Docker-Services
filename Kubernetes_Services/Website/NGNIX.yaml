@@ -19,6 +19,14 @@ spec:
         image: nginx:1.21.4 # Use the ARM-compatible Nginx image
         ports:
         - containerPort: 80
+        volumeMounts:
+        - name: website-volume
+          mountPath: /usr/share/nginx/html # Mount the website folder to NGINX default HTML folder
+      volumes:
+      - name: website-volume
+        hostPath:
+          path: /mnt/media/apache # Specify the path to your website folder on the host machine
+          type: DirectoryOrCreate # Use this type to create the directory if it doesn't exist
 ---
 apiVersion: v1
 kind: Service

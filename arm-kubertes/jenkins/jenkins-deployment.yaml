@@ -1,0 +1,62 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      securityContext:
+        fsGroup: 1000 
+        runAsUser: 0
+      containers:
+        - name: jenkins
+          image: roohoo/jenkins-image:0.0.6
+          ports:
+            - name: http-port
+              containerPort: 8080
+            - name: jnlp-port
+              containerPort: 50000
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+            - name: jenkins-config
+              mountPath: /var/jenkins_config
+            - name: jenkins-secrets
+              mountPath: /usr/share/jenkins/ref/secrets/
+      volumes:
+        - name: jenkins-home
+          persistentVolumeClaim:
+            claimName: "jenkins-home-claim"
+            readOnly: false
+        - name: jenkins-config
+          persistentVolumeClaim:
+            claimName: "jenkins-config-claim"
+            readOnly: false
+        - name: jenkins-secrets
+          persistentVolumeClaim:
+            claimName: "jenkins-secrets-claim"
+            readOnly: false
+      hostNetwork: true
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+
+
+
+
+
+
+
+
+
+
+

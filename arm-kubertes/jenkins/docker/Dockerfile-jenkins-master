@@ -1,0 +1,36 @@
+FROM adoptopenjdk:11.0.6_10-jdk-hotspot-bionic
+
+# make sure to have the jenkins.war file in the same directory
+
+RUN adduser --disabled-password --gecos '' jenkins
+RUN adduser jenkins sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+ARG user=jenkins
+ARG group=jenkins
+ARG uid=1000
+ARG gid=1000
+ARG http_port=8080
+ARG agent_port=50000
+ARG JENKINS_HOME=/var/jenkins_home
+ARG REF=/usr/share/jenkins/ref
+
+
+ENV JENKINS_HOME $JENKINS_HOME
+ENV JENKINS_SLAVE_AGENT_PORT ${agent_port}
+ENV REF $REF
+
+RUN mkdir -p $JENKINS_HOME && mkdir -p $REF \
+  && chown ${uid}:${gid} $JENKINS_HOME
+RUN chown -R ${user} "$JENKINS_HOME" "$REF"
+
+# for main web interface:
+EXPOSE ${http_port}
+
+# will be used by attached slave agents:
+EXPOSE ${agent_port}
+WORKDIR /var.jenkins_home
+COPY *.war .
+USER ${user}
+ENTRYPOINT ["java"]
+CMD ["-jar", "jenkins.war"]

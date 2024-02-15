@@ -1,0 +1,6 @@
+
+# installs nginx ingress with arm images
+helm install --name nginx-ingress stable/nginx-ingress --set rbac.create=true,controller.image.repository="quay.io/kubernetes-ingress-controller/nginx-ingress-controller-arm",defaultBackend.image.repository="k8s.gcr.io/defaultbackend-arm"
+
+# installs cert manager and it is contabable with arm
+helm install --name cert-manager-lets-encrypt --namespace cert-manager --version v0.8.1 jetstack/cert-manager --set ingressShim.defaultIssuerName=letsencrypt --set ingressShim.defaultIssuerKind=ClusterIssuer

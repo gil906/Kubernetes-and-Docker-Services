@@ -1,0 +1,168 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      containers:
+        - name: jenkins
+          image: roohoo/jenkins-image:0.0.6
+          ports:
+            - name: http-port
+              containerPort: 8080
+            - name: jnlp-port
+              containerPort: 50000
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+            - name: jenkins-config
+              mountPath: /var/jenkins_config
+            - name: jenkins-secrets
+              mountPath: /usr/share/jenkins/ref/secrets/
+            - name: jenkins-updates
+              mountPath: /usr/share/jenkins
+
+      volumes:
+        - name: jenkins-home
+          persistentVolumeClaim:
+            claimName: "jenkins-home-claim"
+            readOnly: false
+        - name: jenkins-config
+          persistentVolumeClaim:
+            claimName: "jenkins-config-claim"
+            readOnly: false
+        - name: jenkins-secrets
+          persistentVolumeClaim:
+            claimName: "jenkins-secrets-claim"
+            readOnly: false
+        - name: jenkins-updates
+          persistentVolumeClaim:
+            claimName: "jenkins-updates-claim"
+            readOnly: false
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-home-claim
+spec:
+  storageClassName: standard
+  volumeName: "jenkins-home"
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-config-claim
+spec:
+  storageClassName: standard
+  volumeName: "jenkins-config"
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-secrets-claim
+spec:
+  storageClassName: standard
+  volumeName: "jenkins-secrets"
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-updates-claim
+spec:
+  storageClassName: standard
+  volumeName: "jenkins-updates"
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-home
+  labels:
+    type: local
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/data/jenkins-home/"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-config
+  labels:
+    type: local
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/data/jenkins-config/"
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-secrets
+  labels:
+    type: local
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/data/jenkins-secrets/"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-updates
+  labels:
+    type: local
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/data/jenkins-updates/"

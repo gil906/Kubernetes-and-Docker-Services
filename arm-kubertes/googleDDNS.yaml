@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: google-ddns-all
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: google-ddns-all
+  template:
+    metadata:
+      labels:
+        app: google-ddns-all
+    spec:
+      containers:
+        - name: google-ddns
+          image: roohoo/google-domains:0.0.1
+          env:
+          - name: USERNAME
+            value: "U20xePgjCvABLkFJ"
+          - name: PASSWORD
+            value: "0CLupHzhEj67WOpM"
+          - name: HOSTNAME
+            value: "*.roohoo.dev"
+          - name: INTERVAL
+            value: 5m

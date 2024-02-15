@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: echo-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - echo1.roohoo.dev
+    - echo2.roohoo.dev
+    - jenkins.roohoo.dev
+    secretName: echo-tls
+  rules:
+  - host: jenkins.roohoo.dev
+    http:
+      paths:
+      - backend:
+          serviceName: jenkins
+          servicePort: 80
+  - host: echo1.roohoo.dev
+    http:
+        paths:
+          - backend:
+              serviceName: echo1
+              servicePort: 80
+  - host: echo2.roohoo.dev
+    http:
+        paths:
+          - backend:
+              serviceName: echo2
+              servicePort: 80

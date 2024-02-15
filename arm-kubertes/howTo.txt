@@ -1,0 +1,15 @@
+Use this website
+
+https://www.shogan.co.uk/kubernetes/building-a-pi-kubernetes-cluster-part-3-worker-nodes-and-metallb/
+
+if you ever need to reset the cluster
+https://gist.github.com/carlosedp/5040f4a1b2c97c1fa260a3409b5f14f9
+
+how to install jenkins 
+https://www.blazemeter.com/blog/how-to-setup-scalable-jenkins-on-top-of-a-kubernetes-cluster/
+
+also make sure that you have the three images jenkins-master, jenkins-slave, and jenkins-jnlp-slave. the jnlp slave is the acuall image that you use to run builds.
+The name that you use in the jenkins kubernetes plugin is jnlp. make sure it is jnlp else it will try and create two pods and it will fail.
+
+how to get lets encypt on your cluster
+https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nginx-ingress-with-cert-manager-on-digitalocean-kubernetes

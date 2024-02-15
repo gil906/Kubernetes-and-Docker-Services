@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:alpine-arm64
+        image: nginx:latest
+        platform: linux/arm64
         ports:
         - containerPort: 80
 ---

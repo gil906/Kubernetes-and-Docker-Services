@@ -16,8 +16,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:latest
-        platform: linux/arm64
+        image: nginx:1.21.4 # Use the ARM-compatible Nginx image
         ports:
         - containerPort: 80
 ---

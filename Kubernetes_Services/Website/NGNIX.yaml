@@ -25,7 +25,7 @@ spec:
       volumes:
       - name: website-volume
         hostPath:
-          path: /mnt/media/apache # Specify the path to your website folder on the host machine
+          path: /mnt/media/apache # Specify the path to your website folder on the host machine, this needs to be the same path in all the cluster
           type: DirectoryOrCreate # Use this type to create the directory if it doesn't exist
 ---
 apiVersion: v1

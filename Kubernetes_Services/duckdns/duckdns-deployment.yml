@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: duckdns
+  name: duckdns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: duckdns
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (955b78124)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: duckdns
+    spec:
+      containers:
+        - env:
+            - name: LOG_FILE
+              value: "false"
+            - name: PGID
+              value: "100"
+            - name: PUID
+              value: "99"
+            - name: SUBDOMAINS
+              value: ##### Duckdns DOMAIN  #####
+            - name: TOKEN
+              value: ##### Duckdns Key #####
+            - name: TZ
+              value: America/Bogota
+            - name: URL
+              value: duckdns.org
+            - name: VALIDATION
+              value: http
+          image: ghcr.io/linuxserver/duckdns
+          name: duckdns
+          resources: {}
+          volumeMounts:
+            - mountPath: /config
+              name: duckdns-claim0
+      restartPolicy: Always
+      volumes:
+        - name: duckdns-claim0
+          persistentVolumeClaim:
+            claimName: duckdns-claim0
+status: {}

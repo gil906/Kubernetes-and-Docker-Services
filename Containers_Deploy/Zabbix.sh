@@ -4,7 +4,7 @@ $Zabbix  Server 5.2 with Postgress in Containers  ------------------------------
 
 docker run --name postgres-server -t \
       -e POSTGRES_USER="zabbix" \
-      -e POSTGRES_PASSWORD="XXXXXX" \
+      -e POSTGRES_PASSWORD="<zabbix Postgress Password>" \
       -e POSTGRES_DB="zabbix" \
       --network=zabbix-net \
       --restart unless-stopped \
@@ -22,7 +22,7 @@ docker run --name postgres-server -t \
 docker run --name zabbix-server-pgsql -t \
       -e DB_SERVER_HOST="postgres-server" \
       -e POSTGRES_USER="zabbix" \
-      -e POSTGRES_PASSWORD="zabbixG9d0e6451" \
+      -e POSTGRES_PASSWORD="<zabbix Password>" \
       -e POSTGRES_DB="zabbix" \
       -e ZBX_ENABLE_SNMP_TRAPS="true" \
       --network=zabbix-net \
@@ -36,7 +36,7 @@ docker run --name zabbix-web-nginx-pgsql -t \
       -e ZBX_SERVER_HOST="zabbix-server-pgsql" \
       -e DB_SERVER_HOST="postgres-server" \
       -e POSTGRES_USER="zabbix" \
-      -e POSTGRES_PASSWORD="zabbixG9d0e6451" \
+      -e POSTGRES_PASSWORD="<zabbix Password>" \
       -e POSTGRES_DB="zabbix" \
       --network=zabbix-net \
       -p 8443:8443 \

@@ -6,7 +6,7 @@ docker run -d \
 -p 6052:6052  \
 -p 6053:6053  \
 -p 6123:6123  \
--e TZ=America/Bogota \
+-e TZ=America/Los_Angeles \
 --restart unless-stopped \
 -v  /mnt/media/esphome:/config esphome/esphome \
 esphome/esphome

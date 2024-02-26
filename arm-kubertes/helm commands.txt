@@ -4,3 +4,4 @@ helm install --name nginx-ingress stable/nginx-ingress --set rbac.create=true,co
 
 # installs cert manager and it is contabable with arm
 helm install --name cert-manager-lets-encrypt --namespace cert-manager --version v0.8.1 jetstack/cert-manager --set ingressShim.defaultIssuerName=letsencrypt --set ingressShim.defaultIssuerKind=ClusterIssuer
+

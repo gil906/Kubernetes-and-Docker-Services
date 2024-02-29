@@ -1,3 +1,13 @@
+#!/bin/bash
+
+# Define environment variables
+export ZABBIX_POSTGRES_PASSWORD="<zabbix Postgres Password>"
+export ZABBIX_DB_PASSWORD="<zabbix Password>"
+export ZABBIX_POSTGRES_USER="zabbix"
+export ZABBIX_POSTGRES_DB="zabbix"
+export ZABBIX_SERVER_HOST="<Server_IP"  # Change this to the appropriate IP
+
+
 $Zabbix  Server 5.2 with Postgress in Containers  -----------------------------------------------------------------------------
  docker network create --subnet 172.20.0.0/16 --ip-range 172.20.240.0/20 zabbix-net
 

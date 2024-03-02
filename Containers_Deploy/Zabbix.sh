@@ -1,10 +1,20 @@
+#!/bin/bash
+
+# Define environment variables
+export ZABBIX_POSTGRES_PASSWORD="<zabbix Postgres Password>"
+export ZABBIX_DB_PASSWORD="<zabbix Password>"
+export ZABBIX_POSTGRES_USER="zabbix"
+export ZABBIX_POSTGRES_DB="zabbix"
+export ZABBIX_SERVER_HOST="<Server_IP"  # Change this to the appropriate IP
+
+
 $Zabbix  Server 5.2 with Postgress in Containers  -----------------------------------------------------------------------------
  docker network create --subnet 172.20.0.0/16 --ip-range 172.20.240.0/20 zabbix-net
 
 
 docker run --name postgres-server -t \
       -e POSTGRES_USER="zabbix" \
-      -e POSTGRES_PASSWORD="XXXXXX" \
+      -e POSTGRES_PASSWORD="<zabbix Postgress Password>" \
       -e POSTGRES_DB="zabbix" \
       --network=zabbix-net \
       --restart unless-stopped \
@@ -22,7 +32,7 @@ docker run --name postgres-server -t \
 docker run --name zabbix-server-pgsql -t \
       -e DB_SERVER_HOST="postgres-server" \
       -e POSTGRES_USER="zabbix" \
-      -e POSTGRES_PASSWORD="zabbixG9d0e6451" \
+      -e POSTGRES_PASSWORD="<zabbix Password>" \
       -e POSTGRES_DB="zabbix" \
       -e ZBX_ENABLE_SNMP_TRAPS="true" \
       --network=zabbix-net \
@@ -36,7 +46,7 @@ docker run --name zabbix-web-nginx-pgsql -t \
       -e ZBX_SERVER_HOST="zabbix-server-pgsql" \
       -e DB_SERVER_HOST="postgres-server" \
       -e POSTGRES_USER="zabbix" \
-      -e POSTGRES_PASSWORD="zabbixG9d0e6451" \
+      -e POSTGRES_PASSWORD="<zabbix Password>" \
       -e POSTGRES_DB="zabbix" \
       --network=zabbix-net \
       -p 8443:8443 \

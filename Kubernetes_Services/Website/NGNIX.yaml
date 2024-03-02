@@ -1,5 +1,6 @@
 # To apply: kubectl apply -f NGNIX.yaml
 # To check the service: kubectl get svc nginx-service
+# Create ENV variables first
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -25,7 +26,11 @@ spec:
       volumes:
       - name: website-volume
         hostPath:
+<<<<<<< HEAD
           path: /mnt/media/apache/templates # Specify the path to your website folder on the host machine
+=======
+          path: /mnt/media/apache # Specify the path to your website folder on the host machine, this needs to be the same path in all the cluster
+>>>>>>> 7b30abb1ef76364faddfc99a720a561126435bd6
           type: DirectoryOrCreate # Use this type to create the directory if it doesn't exist
 ---
 apiVersion: v1
@@ -40,3 +45,4 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
+

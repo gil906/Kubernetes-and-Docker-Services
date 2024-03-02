@@ -163,7 +163,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: kubernetes-dashboard
-  namespace: default
+  namespace: kubernetes-dashboard
 
 ---
 

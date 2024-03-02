@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: vpn-client
+spec:
+  selector:
+    matchLabels:
+      app: vpn-client
+  template:
+    metadata:
+      labels:
+        app: vpn-client
+    spec:
+      containers:
+      - name: vpn-client
+        image: your-vpn-client-image:tag
+        securityContext:
+          privileged: true  # Needed for VPN client to modify network settings
+        env:
+          - name: VPN_SERVER_ADDRESS
+            value: "<your-vpn-server-address>"
+          - name: VPN_USERNAME
+            value: "<your-vpn-username>"
+          - name: VPN_PASSWORD
+            value: "<your-vpn-password>"
+        volumeMounts:
+          - name: tun-device
+            mountPath: /dev/net
+        ports:
+          - containerPort: 1194  # Adjust port if necessary
+            protocol: UDP  # Adjust protocol if necessary
+      volumes:
+        - name: tun-device
+          hostPath:
+            path: /dev/net

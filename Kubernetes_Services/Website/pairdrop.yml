@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pairdrop-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pairdrop
+  template:
+    metadata:
+      labels:
+        app: pairdrop
+    spec:
+      containers:
+        - name: pairdrop
+          image: linuxserver/pairdrop
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: pairdrop-data
+              mountPath: /mnt/media/pairdrop
+      volumes:
+        - name: pairdrop-data
+          hostPath:
+            path: /mnt/media/pairdrop

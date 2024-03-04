@@ -16,7 +16,7 @@ spec:
         - name: pairdrop
           image: linuxserver/pairdrop
           ports:
-            - containerPort: 80
+            - containerPort: 3000
           volumeMounts:
             - name: pairdrop-data
               mountPath: /mnt/media/pairdrop
@@ -36,5 +36,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 32524
+      targetPort: 3000
   type: LoadBalancer

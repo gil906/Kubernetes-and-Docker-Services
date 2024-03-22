@@ -1,0 +1,19 @@
+name: Release Trigger
+
+on:
+  release:
+    types:
+      - created
+      - edited
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Add your build and deployment steps here
+      # ...
+

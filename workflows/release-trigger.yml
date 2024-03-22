@@ -1,19 +1,41 @@
-name: Release Trigger
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flask
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+      - name: flask
+        image: python:3.8  # Using the Python base image
+        ports:
+        - containerPort: 5000  # Assuming your Flask app runs on port 5000
+        volumeMounts:
+        - name: app-volume
+          mountPath: /app
+      volumes:
+      - name: app-volume
+        hostPath:
+          path: /mnt/media/apache  # Specify the path to your Flask app folder on the host machine
+          type: DirectoryOrCreate  # Use this type to create the directory if it doesn't exist
 
-on:
-  release:
-    types:
-      - created
-      - edited
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      # Add your build and deployment steps here
-      # ...
-
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: flask
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000

@@ -16,7 +16,7 @@ spec:
       - name: flask
         image: python:3.8 # Using the Python base image
         ports:
-        - containerPort: 5000 # Assuming your Flask app runs on port 5000
+        - containerPort: 5000 # Assuming  Flask app runs on port 5000
         volumeMounts:
         - name: app-volume
           mountPath: /app
